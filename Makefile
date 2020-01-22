@@ -107,7 +107,8 @@ router-ipv6:
 
 # Add "ports" to the build, if desired
 .PHONY: ports
-ports:	atmega168 bdk-atxx4-mstp at91sam7s stm32f10x
+#ports:	atmega168 bdk-atxx4-mstp at91sam7s stm32f10x
+ports:	stm32f10x
 	@echo "Built the ARM7 and AVR ports"
 
 .PHONY: atmega168
