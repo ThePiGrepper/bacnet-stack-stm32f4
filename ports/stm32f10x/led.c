@@ -31,6 +31,7 @@ static struct mstimer Off_Delay_Timer_Tx;
 static bool Rx_State;
 static bool Tx_State;
 static bool LD3_State;
+static bool LD4_State;
 
 /*************************************************************************
  * Description: Activate the LED
@@ -194,7 +195,8 @@ void led_task(void)
  **************************************************************************/
 void led_ld4_on(void)
 {
-    GPIO_WriteBit(GPIOC, GPIO_Pin_8, Bit_SET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_SET);
+    LD4_State = true;
 }
 
 /*************************************************************************
@@ -204,7 +206,18 @@ void led_ld4_on(void)
  **************************************************************************/
 void led_ld4_off(void)
 {
-    GPIO_WriteBit(GPIOC, GPIO_Pin_8, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_RESET);
+    LD4_State = false;
+}
+
+/*************************************************************************
+ * Description: Get the state of the LED
+ * Returns: true if on, false if off.
+ * Notes: none
+ *************************************************************************/
+bool led_ld4_state(void)
+{
+    return LD4_State;
 }
 
 /*************************************************************************
@@ -214,7 +227,7 @@ void led_ld4_off(void)
  **************************************************************************/
 void led_ld3_on(void)
 {
-    GPIO_WriteBit(GPIOC, GPIO_Pin_9, Bit_SET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
     LD3_State = true;
 }
 
@@ -225,7 +238,7 @@ void led_ld3_on(void)
  **************************************************************************/
 void led_ld3_off(void)
 {
-    GPIO_WriteBit(GPIOC, GPIO_Pin_9, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
     LD3_State = false;
 }
 
@@ -275,17 +288,17 @@ void led_init(void)
     GPIO_Init(GPIOB, &GPIO_InitStructure);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
     /* Configure the LD4 on Discovery board */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
     /* Configure the LD3 on Discovery board */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
     /* Enable the GPIO_LED Clock */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 
     led_tx_on();
     led_rx_on();
