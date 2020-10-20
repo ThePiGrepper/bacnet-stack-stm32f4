@@ -195,7 +195,7 @@ void led_task(void)
  **************************************************************************/
 void led_ld4_on(void)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_SET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_0, Bit_SET);
     LD4_State = true;
 }
 
@@ -206,7 +206,7 @@ void led_ld4_on(void)
  **************************************************************************/
 void led_ld4_off(void)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_0, Bit_RESET);
     LD4_State = false;
 }
 
@@ -227,7 +227,7 @@ bool led_ld4_state(void)
  **************************************************************************/
 void led_ld3_on(void)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_1, Bit_SET);
     LD3_State = true;
 }
 
@@ -238,7 +238,7 @@ void led_ld3_on(void)
  **************************************************************************/
 void led_ld3_off(void)
 {
-    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_1, Bit_RESET);
     LD3_State = false;
 }
 
@@ -288,12 +288,12 @@ void led_init(void)
     GPIO_Init(GPIOB, &GPIO_InitStructure);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
     /* Configure the LD4 on Discovery board */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
     /* Configure the LD3 on Discovery board */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
