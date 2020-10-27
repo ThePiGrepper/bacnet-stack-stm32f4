@@ -407,7 +407,7 @@ void Device_Init(object_functions_t *object_table)
         Object_Instance_Number = 103;
         srand(Object_Instance_Number);
     }
-    characterstring_init_ansi(&My_Object_Name, "stm32-design-challenge-103");
+    characterstring_init_ansi(&My_Object_Name, "Controls-Process-Bacnet");
 }
 
 /* methods to manipulate the data */
@@ -607,7 +607,7 @@ int Device_Read_Property_Local(BACNET_READ_PROPERTY_DATA *rpdata)
     apdu = rpdata->application_data;
     switch ((int)rpdata->object_property) {
         case PROP_DESCRIPTION:
-            characterstring_init_ansi(&char_string, "BACnet Development Kit");
+            characterstring_init_ansi(&char_string, "BACnet Card R1");
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
@@ -629,7 +629,7 @@ int Device_Read_Property_Local(BACNET_READ_PROPERTY_DATA *rpdata)
             apdu_len = encode_application_unsigned(&apdu[0], BACNET_VENDOR_ID);
             break;
         case PROP_MODEL_NAME:
-            characterstring_init_ansi(&char_string, "bdk-stm32-mstp");
+            characterstring_init_ansi(&char_string, "CP mstp");
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
