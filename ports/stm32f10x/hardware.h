@@ -28,6 +28,8 @@
 #include "stm32f10x_conf.h"
 #include "stm32f10x_it.h"
 
-#define MAX_BINARY_OUTPUTS 2
+#define MAX_BINARY_OUTPUTS 4
+
+#define MAX_LEDS MAX_BINARY_OUTPUTS
 
 #endif

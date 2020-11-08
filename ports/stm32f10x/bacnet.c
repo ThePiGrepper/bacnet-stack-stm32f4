@@ -113,21 +113,9 @@ void bacnet_task(void)
                 }
             }
             if (binary_value == BINARY_ACTIVE) {
-                if (i == 0) {
-                    /* led_on(LED_2); */
-                    led_ld4_on();
-                } else {
-                    /* led_on(LED_3); */
-                    led_ld3_on();
-                }
+              led_on(i);
             } else {
-                if (i == 0) {
-                    /* led_off(LED_2); */
-                    led_ld4_off();
-                } else {
-                    /* led_off(LED_3); */
-                    led_ld3_off();
-                }
+              led_off(i);
             }
         }
     }

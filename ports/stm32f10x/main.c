@@ -81,7 +81,7 @@ void lse_init(void)
             if (RCC_GetFlagStatus(RCC_FLAG_LSERDY) != RESET) {
                 /* Set flag: LSE PASS */
                 LSE_Delay |= LSE_PASS_FLAG;
-                led_ld4_off();
+                //led_ld4_off();
                 /* Disable LSE */
                 RCC_LSEConfig(RCC_LSE_OFF);
                 break;
@@ -93,7 +93,7 @@ void lse_init(void)
             if (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET) {
                 /* Set flag: LSE FAIL */
                 LSE_Delay |= LSE_FAIL_FLAG;
-                led_ld4_on();
+                //led_ld4_on();
             }
             /* Disable LSE */
             RCC_LSEConfig(RCC_LSE_OFF);
@@ -124,7 +124,7 @@ int main(void)
     for (;;) {
         if (mstimer_expired(&Blink_Timer)) {
             mstimer_reset(&Blink_Timer);
-            led_ld3_toggle();
+            //led_ld3_toggle();
         }
         led_task();
         bacnet_task();

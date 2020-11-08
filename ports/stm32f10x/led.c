@@ -33,6 +33,8 @@ static bool Tx_State;
 static bool LD3_State;
 static bool LD4_State;
 
+static bool LED_Status[MAX_LEDS];
+
 /*************************************************************************
  * Description: Activate the LED
  * Returns: nothing
@@ -267,6 +269,96 @@ void led_ld3_toggle(void)
 }
 
 /*************************************************************************
+ * Description: Turn on an LED
+ * Returns: none
+ * Notes: none
+ *************************************************************************/
+void led_on(uint8_t index)
+{
+    switch (index) {
+        case 0:
+            GPIO_WriteBit(GPIOB, GPIO_Pin_0, Bit_SET);
+            break;
+        case 1:
+            GPIO_WriteBit(GPIOB, GPIO_Pin_1, Bit_SET);
+            break;
+        case 2:
+            GPIO_WriteBit(GPIOA, GPIO_Pin_6, Bit_SET);
+            break;
+        case 3:
+            GPIO_WriteBit(GPIOA, GPIO_Pin_7, Bit_SET);
+            break;
+        default:
+            break;
+    }
+    if (index < MAX_LEDS) {
+        LED_Status[index] = true;
+//        mstimer_set(&Off_Delay_Timer[index], 0);
+    }
+}
+
+/*************************************************************************
+ * Description: Turn off an LED
+ * Returns: none
+ * Notes: none
+ *************************************************************************/
+void led_off(uint8_t index)
+{
+    switch (index) {
+        case 0:
+            GPIO_WriteBit(GPIOB, GPIO_Pin_0, Bit_RESET);
+            break;
+        case 1:
+            GPIO_WriteBit(GPIOB, GPIO_Pin_1, Bit_RESET);
+            break;
+        case 2:
+            GPIO_WriteBit(GPIOA, GPIO_Pin_6, Bit_RESET);
+            break;
+        case 3:
+            GPIO_WriteBit(GPIOA, GPIO_Pin_7, Bit_RESET);
+            break;
+        default:
+            break;
+    }
+    if (index < MAX_LEDS) {
+        LED_Status[index] = false;
+//        mstimer_set(&Off_Delay_Timer[index], 0);
+    }
+
+}
+
+/*************************************************************************
+ * Description: Get the state of the LED
+ * Returns: true if on, false if off.
+ * Notes: none
+ *************************************************************************/
+bool led_state(uint8_t index)
+{
+    bool state = false;
+
+    if (index < MAX_LEDS) {
+        state = LED_Status[index];
+    }
+
+    return state;
+}
+
+/*************************************************************************
+ * Description: Toggle the state of the setup LED
+ * Returns: none
+ * Notes: none
+ *************************************************************************/
+void led_toggle(uint8_t index)
+{
+    if (led_state(index)) {
+        led_off(index);
+    } else {
+        led_on(index);
+    }
+}
+
+
+/*************************************************************************
  * Description: Initialize the LED hardware
  * Returns: none
  * Notes: none
@@ -300,8 +392,24 @@ void led_init(void)
     /* Enable the GPIO_LED Clock */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 
+    /* Configure other leds/outputs on Discovery board */
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+
     led_tx_on();
     led_rx_on();
-    led_ld3_on();
-    led_ld4_on();
+//    led_ld3_on();
+//    led_ld4_on();
+  /* Init leds */
+    int i;
+    for (i = 0; i < MAX_LEDS; i++)
+      led_on(i);
 }
