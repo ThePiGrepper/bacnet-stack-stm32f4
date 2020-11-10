@@ -40,6 +40,7 @@
 #include "bacnet/proplist.h"
 /* objects */
 #include "bacnet/basic/object/device.h"
+#include "bacnet/basic/object/bi.h"
 #include "bacnet/basic/object/bo.h"
 
 /* forward prototype */
@@ -61,6 +62,10 @@ static struct my_object_functions {
                          Device_Valid_Object_Instance_Number,
                          Device_Object_Name, Device_Read_Property_Local,
                          Device_Write_Property_Local, Device_Property_Lists },
+    { OBJECT_BINARY_INPUT, Binary_Input_Init, Binary_Input_Count,
+        Binary_Input_Index_To_Instance, Binary_Input_Valid_Instance,
+        Binary_Input_Object_Name, Binary_Input_Read_Property, NULL,
+        Binary_Input_Property_Lists },
     { OBJECT_BINARY_OUTPUT, Binary_Output_Init, Binary_Output_Count,
         Binary_Output_Index_To_Instance, Binary_Output_Valid_Instance,
         Binary_Output_Object_Name, Binary_Output_Read_Property,
