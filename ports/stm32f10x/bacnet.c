@@ -95,9 +95,21 @@ void bacnet_task(void)
     uint16_t pdu_len;
     BACNET_ADDRESS src; /* source address */
     uint8_t i;
+    uint8_t input_value;
     BACNET_BINARY_PV binary_value = BINARY_INACTIVE;
     BACNET_POLARITY polarity;
     bool out_of_service;
+
+    /* handle the inputs */
+    for (i = 0; i < MAX_BINARY_INPUTS; i++) {
+        input_value = get_input_value(i);
+        if (input_value) {
+            binary_value = BINARY_ACTIVE;
+        } else {
+            binary_value = BINARY_INACTIVE;
+        }
+        Binary_Input_Present_Value_Set(i, binary_value);
+    }
 
     /* Binary Output */
     for (i = 0; i < MAX_BINARY_OUTPUTS; i++) {

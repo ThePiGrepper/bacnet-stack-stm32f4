@@ -28,6 +28,7 @@ PLATFORM_SRC = \
 	$(PLATFORM_DIR)/device.c \
 	$(PLATFORM_DIR)/dlmstp.c \
 	$(PLATFORM_DIR)/led.c \
+	$(PLATFORM_DIR)/input.c \
 	$(PLATFORM_DIR)/rs485.c \
 	$(PLATFORM_DIR)/stm32f10x_it.c \
 	$(PLATFORM_DIR)/system_stm32f10x.c \

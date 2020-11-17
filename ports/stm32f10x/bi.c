@@ -34,8 +34,8 @@
 #include "bacnet/config.h"
 #include "bacnet/basic/object/bi.h"
 #include "bacnet/basic/services.h"
+#include "hardware.h"
 
-#define MAX_BINARY_INPUTS 5
 #if (MAX_BINARY_INPUTS > 6)
 #error Modify the Binary_Input_Name to handle multiple digits
 #endif
@@ -206,4 +206,18 @@ int Binary_Input_Read_Property(BACNET_READ_PROPERTY_DATA *rpdata)
     }
 
     return apdu_len;
+}
+
+bool Binary_Input_Present_Value_Set(
+    uint32_t object_instance, BACNET_BINARY_PV value)
+{
+    unsigned index = 0;
+
+    index = Binary_Input_Instance_To_Index(object_instance);
+    if (index < MAX_BINARY_INPUTS) {
+        Present_Value[index] = value;
+        return true;
+    }
+
+    return false;
 }

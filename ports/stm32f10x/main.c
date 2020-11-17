@@ -119,6 +119,7 @@ int main(void)
     mstimer_init();
     lse_init();
     led_init();
+    input_init();
     bacnet_init();
     mstimer_set(&Blink_Timer, 125);
     for (;;) {

@@ -32,4 +32,5 @@
 
 #define MAX_LEDS MAX_BINARY_OUTPUTS
 
+#define MAX_BINARY_INPUTS 5
 #endif
