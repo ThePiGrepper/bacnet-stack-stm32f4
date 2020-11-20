@@ -78,6 +78,8 @@ BACNET_SRC = \
 	$(BACNET_CORE)/wp.c
 
 STM32_SRC = \
+	$(LIBRARY_STM32)/stm32f10x_adc.c \
+	$(LIBRARY_STM32)/stm32f10x_dma.c \
 	$(LIBRARY_STM32)/stm32f10x_gpio.c \
 	$(LIBRARY_STM32)/stm32f10x_misc.c \
 	$(LIBRARY_STM32)/stm32f10x_pwr.c \

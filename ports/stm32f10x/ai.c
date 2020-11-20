@@ -34,6 +34,7 @@
 #include "bacnet/config.h"
 #include "bacnet/basic/object/ai.h"
 #include "bacnet/basic/services.h"
+#include "hardware.h"
 
 #ifndef MAX_ANALOG_INPUTS
 #define MAX_ANALOG_INPUTS 4

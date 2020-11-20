@@ -101,6 +101,9 @@ void bacnet_task(void)
     bool out_of_service;
 
     /* handle the inputs */
+    for (i = 0; i < MAX_ANALOG_INPUTS; i++) {
+      Analog_Input_Present_Value_Set(i, get_analog_value(i));
+    }
     for (i = 0; i < MAX_BINARY_INPUTS; i++) {
         input_value = get_input_value(i);
         if (input_value) {
