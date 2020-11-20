@@ -81,7 +81,7 @@ static struct my_object_functions {
    properties that are writable or that may change.
    The properties that are constant can be hard coded
    into the read-property encoding. */
-static uint32_t Object_Instance_Number = 103;
+static uint32_t Object_Instance_Number = 0;
 static BACNET_DEVICE_STATUS System_Status = STATUS_OPERATIONAL;
 static BACNET_CHARACTER_STRING My_Object_Name;
 static uint32_t Database_Revision;
@@ -149,7 +149,7 @@ static int Read_Property_Common(
                 /* Device Object exception: requested instance
                    may not match our instance if a wildcard */
                 if (rpdata->object_type == OBJECT_DEVICE) {
-                    rpdata->object_instance = Object_Instance_Number;
+                    rpdata->object_instance = Device_Object_Instance_Number();
                 }
                 apdu_len = encode_application_object_id(
                     &apdu[0], rpdata->object_type, rpdata->object_instance);
@@ -318,7 +318,7 @@ unsigned Device_Count(void)
 uint32_t Device_Index_To_Instance(unsigned index)
 {
     (void)index;
-    return Object_Instance_Number;
+    return Device_Object_Instance_Number();
 }
 
 bool Device_Object_Name(
@@ -326,7 +326,7 @@ bool Device_Object_Name(
 {
     bool status = false;
 
-    if (object_instance == Object_Instance_Number) {
+    if (object_instance == Device_Object_Instance_Number()) {
         status = characterstring_copy(object_name, &My_Object_Name);
     }
 
@@ -413,7 +413,7 @@ void Device_Init(object_functions_t *object_table)
         pObject++;
     }
     dcc_set_status_duration(COMMUNICATION_ENABLE, 0);
-    if (Object_Instance_Number >= BACNET_MAX_INSTANCE) {
+    if (Device_Object_Instance_Number() >= BACNET_MAX_INSTANCE) {
         Object_Instance_Number = 103;
         srand(Object_Instance_Number);
     }
@@ -423,6 +423,9 @@ void Device_Init(object_functions_t *object_table)
 /* methods to manipulate the data */
 uint32_t Device_Object_Instance_Number(void)
 {
+    if (Object_Instance_Number == 0) { /* unique device id register */
+      Object_Instance_Number = 0x3FFFFF & *((uint32_t *)0x1ffff7e8);
+    }
     return Object_Instance_Number;
 }
 
@@ -440,7 +443,7 @@ bool Device_Set_Object_Instance_Number(uint32_t object_id)
 
 bool Device_Valid_Object_Instance_Number(uint32_t object_id)
 {
-    return (Object_Instance_Number == object_id);
+    return (Device_Object_Instance_Number() == object_id);
 }
 
 BACNET_DEVICE_STATUS Device_System_Status(void)
