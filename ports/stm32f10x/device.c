@@ -625,7 +625,7 @@ int Device_Read_Property_Local(BACNET_READ_PROPERTY_DATA *rpdata)
                 encode_application_character_string(&apdu[0], &char_string);
             break;
         case PROP_LOCATION:
-            characterstring_init_ansi(&char_string, "USA");
+            characterstring_init_ansi(&char_string, "AUS");
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
