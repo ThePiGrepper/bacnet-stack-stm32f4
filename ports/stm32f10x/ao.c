@@ -236,12 +236,11 @@ bool Analog_Output_Present_Value_Relinquish(
 bool Analog_Output_Object_Name(
     uint32_t object_instance, BACNET_CHARACTER_STRING *object_name)
 {
-    static char text_string[32] = ""; /* okay for single thread */
+    static char text_string[16] = "AO-0"; /* okay for single thread */
     bool status = false;
 
     if (object_instance < MAX_ANALOG_OUTPUTS) {
-        sprintf(
-            text_string, "ANALOG OUTPUT %lu", (unsigned long)object_instance);
+        text_string[3] = '0' + (uint8_t)object_instance;
         status = characterstring_init_ansi(object_name, text_string);
     }
 
