@@ -23,6 +23,7 @@ PLATFORM_SRC = \
 	$(PLATFORM_DIR)/automac.c \
 	$(PLATFORM_DIR)/bacnet.c \
 	$(PLATFORM_DIR)/ai.c \
+	$(PLATFORM_DIR)/ao.c \
 	$(PLATFORM_DIR)/bi.c \
 	$(PLATFORM_DIR)/bo.c \
 	$(PLATFORM_DIR)/device.c \

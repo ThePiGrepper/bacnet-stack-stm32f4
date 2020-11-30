@@ -41,6 +41,7 @@
 /* objects */
 #include "bacnet/basic/object/device.h"
 #include "bacnet/basic/object/ai.h"
+#include "bacnet/basic/object/ao.h"
 #include "bacnet/basic/object/bi.h"
 #include "bacnet/basic/object/bo.h"
 
@@ -67,6 +68,10 @@ static struct my_object_functions {
         Analog_Input_Index_To_Instance, Analog_Input_Valid_Instance,
         Analog_Input_Object_Name, Analog_Input_Read_Property, NULL,
         Analog_Input_Property_Lists },
+    { OBJECT_ANALOG_OUTPUT, Analog_Output_Init, Analog_Output_Count,
+        Analog_Output_Index_To_Instance, Analog_Output_Valid_Instance,
+        Analog_Output_Object_Name, Analog_Output_Read_Property,
+        Analog_Output_Write_Property, Analog_Output_Property_Lists },
     { OBJECT_BINARY_INPUT, Binary_Input_Init, Binary_Input_Count,
         Binary_Input_Index_To_Instance, Binary_Input_Valid_Instance,
         Binary_Input_Object_Name, Binary_Input_Read_Property, NULL,

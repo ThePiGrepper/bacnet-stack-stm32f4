@@ -131,3 +131,8 @@ int main(void)
         bacnet_task();
     }
 }
+
+int __io_putchar(int ch)
+{
+  return ch;
+}
