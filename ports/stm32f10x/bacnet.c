@@ -38,7 +38,14 @@
 #include "bacnet/iam.h"
 /* BACnet objects */
 #include "bacnet/basic/object/device.h"
+#include "bacnet/basic/object/bi.h"
 #include "bacnet/basic/object/bo.h"
+#include "bacnet/basic/object/ai.h"
+#include "bacnet/basic/object/ao.h"
+/* hardware specific */
+#include "led.h"
+#include "output.h"
+#include "input.h"
 /* me */
 #include "bacnet.h"
 
@@ -97,12 +104,21 @@ void bacnet_task(void)
     uint8_t i;
     uint8_t input_value;
     BACNET_BINARY_PV binary_value = BINARY_INACTIVE;
+    uint8_t analog_value = 0;
     BACNET_POLARITY polarity;
     bool out_of_service;
 
     /* handle the inputs */
     for (i = 0; i < MAX_ANALOG_INPUTS; i++) {
       Analog_Input_Present_Value_Set(i, get_analog_value(i));
+    }
+    /* Analog Output */
+    for (i = 0; i < MAX_ANALOG_OUTPUTS; i++) {
+        out_of_service = Analog_Output_Out_Of_Service(i);
+        if (!out_of_service) {
+            analog_value = (uint8_t) Analog_Output_Present_Value(i);
+            set_output_pwm(i, analog_value);
+        }
     }
     for (i = 0; i < MAX_BINARY_INPUTS; i++) {
         input_value = get_input_value(i);

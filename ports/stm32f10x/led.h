@@ -78,6 +78,8 @@ extern "C" {
         void);
     void led_init(
         void);
+    void led_off(uint8_t index);
+    void led_on(uint8_t index);
 
 #ifdef __cplusplus
 }

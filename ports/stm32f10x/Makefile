@@ -29,6 +29,7 @@ PLATFORM_SRC = \
 	$(PLATFORM_DIR)/device.c \
 	$(PLATFORM_DIR)/dlmstp.c \
 	$(PLATFORM_DIR)/led.c \
+	$(PLATFORM_DIR)/output.c \
 	$(PLATFORM_DIR)/input.c \
 	$(PLATFORM_DIR)/rs485.c \
 	$(PLATFORM_DIR)/stm32f10x_it.c \
@@ -85,6 +86,7 @@ STM32_SRC = \
 	$(LIBRARY_STM32)/stm32f10x_misc.c \
 	$(LIBRARY_STM32)/stm32f10x_pwr.c \
 	$(LIBRARY_STM32)/stm32f10x_rcc.c \
+	$(LIBRARY_STM32)/stm32f10x_tim.c \
 	$(LIBRARY_STM32)/stm32f10x_usart.c \
 	$(LIBRARY_STM32)/syscalls.c
 

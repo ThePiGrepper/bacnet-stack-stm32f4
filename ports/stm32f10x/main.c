@@ -30,6 +30,8 @@
 #include "bacnet/basic/sys/mstimer.h"
 #include "rs485.h"
 #include "led.h"
+#include "input.h"
+#include "output.h"
 #include "bacnet.h"
 
 /* local version override */
@@ -120,6 +122,7 @@ int main(void)
     lse_init();
     led_init();
     input_init();
+    output_init();
     bacnet_init();
     mstimer_set(&Blink_Timer, 125);
     for (;;) {
